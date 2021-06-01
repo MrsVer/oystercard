@@ -8,7 +8,12 @@ describe Oystercard do
  describe '#top_up' do
     it "top up the balance" do
         top_up_balance = 10
-        expect(subject.top_up(top_up_balance)).to eq top_up_balance
+        expect( subject.top_up(top_up_balance)).to eq top_up_balance
+    end
+
+    it 'does not exceed top up of 90' do
+        expect{ subject.top_up(100)}.to raise_error "Balance cannot exceed 90"
     end
  end
 end
+
