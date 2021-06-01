@@ -1,6 +1,8 @@
 class Oystercard
+    
 STARTING_BALANCE = 0
 MAXIMUM_BALANCE = 90
+
 attr_reader :balance
 
     def initialize
