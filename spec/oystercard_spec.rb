@@ -19,12 +19,17 @@ describe Oystercard do
  end
 
 describe '#deduct' do
-    it 'deduct money from the card' do
-    card = Oystercard.new
-    card.top_up(20)
-    card.deduct(10)
-    expect(card.balance).to eq 10
-     end
+    # it 'deduct money from the card' do
+    # card = Oystercard.new
+    # card.top_up(20)
+    # card.deduct(10)
+    # expect(card.balance).to eq 10
+    #  end
+
+    it 'deducts an amount from the balance' do
+      subject.top_up(20)
+      expect{ subject.deduct 10}.to change{ subject.balance }.by -10
     end
+  end
 end
 
