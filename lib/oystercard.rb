@@ -11,4 +11,8 @@ attr_reader :balance
       fail "Maximum balance of #{MAXIMUM_BALANCE} exceeded" if @balance + top_up_amount > MAXIMUM_BALANCE
       @balance += top_up_amount
     end
+
+    def deduct(amount)
+        @balance -= amount
+    end
 end
