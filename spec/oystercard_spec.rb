@@ -41,8 +41,14 @@ describe Oystercard do
 
   describe '#touch_in' do
     it "can touch in" do
+       subject.top_up(20)
        subject.touch_in
        expect(subject).to be_in_journey
+    end
+
+    it 'throws an error if insufficient funds' do
+      minimum_balance = Oystercard::MINIMUM_BALANCE
+      expect { subject.touch_in }.to raise_error 'Insufficient balance to touch in'
     end
   end
   
@@ -54,12 +60,12 @@ describe Oystercard do
     end
   end
 
-  describe 'minimum balance error' do
-    it 'will not touch in if below minimum balance' do
-     minimum_balance = Oystercard::MINIMUM_BALANCE
-     expect{ subject.touch_in }.to raise_error "Insufficient balance to touch in"
-    end
-  end
+  # describe 'minimum balance error' do
+  #   it 'will not touch in if below minimum balance' do
+  #    minimum_balance = Oystercard::MINIMUM_BALANCE
+  #    expect{ subject.touch_in }.to raise_error "Insufficient balance to touch in"
+  #   end
+  # end
 
 end
 
