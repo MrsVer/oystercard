@@ -30,5 +30,7 @@ attr_reader :balance
     
     def touch_out
         @in_journey = false
+        @balance -= MINIMUM_BALANCE
+        
     end
 end

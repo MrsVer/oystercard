@@ -2,7 +2,6 @@ require "oystercard"
 
 describe Oystercard do
   let(:min_balance) { Oystercard::MINIMUM_BALANCE }
-  
     it "has an initialized balanced of 0" do
      expect(subject.balance).to eq 0
     end
@@ -52,6 +51,11 @@ describe Oystercard do
       subject.touch_out
       expect(subject).not_to be_in_journey
     end
+
+    it "Deduct money when touch out" do
+    expect {subject.touch_out}.to change{ subject.balance }.by(-min_balance)
+    end
   end
+
 end
 
