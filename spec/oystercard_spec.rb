@@ -1,6 +1,8 @@
 require "oystercard"
 
 describe Oystercard do
+  let(:min_balance) { Oystercard::MINIMUM_BALANCE }
+  
     it "has an initialized balanced of 0" do
      expect(subject.balance).to eq 0
     end
@@ -20,13 +22,6 @@ describe Oystercard do
  end
 
   describe '#deduct' do
-    # it 'deduct money from the card' do
-    # card = Oystercard.new
-    # card.top_up(20)
-    # card.deduct(10)
-    # expect(card.balance).to eq 10
-    #  end
-
     it 'deducts an amount from the balance' do
       subject.top_up(20)
       expect{ subject.deduct 10}.to change{ subject.balance }.by -10
@@ -47,7 +42,6 @@ describe Oystercard do
     end
 
     it 'throws an error if insufficient funds' do
-      minimum_balance = Oystercard::MINIMUM_BALANCE
       expect { subject.touch_in }.to raise_error 'Insufficient balance to touch in'
     end
   end
@@ -59,13 +53,5 @@ describe Oystercard do
       expect(subject).not_to be_in_journey
     end
   end
-
-  # describe 'minimum balance error' do
-  #   it 'will not touch in if below minimum balance' do
-  #    minimum_balance = Oystercard::MINIMUM_BALANCE
-  #    expect{ subject.touch_in }.to raise_error "Insufficient balance to touch in"
-  #   end
-  # end
-
 end
 
