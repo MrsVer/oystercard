@@ -1,7 +1,9 @@
 require "oystercard"
 
 describe Oystercard do
-  let(:min_balance) { Oystercard::MINIMUM_BALANCE }
+  let(:min_charge) { Oystercard::MINIMUM_CHARGE }
+  let(:station) { double(:station) }
+
     it "has an initialized balanced of 0" do
      expect(subject.balance).to eq 0
     end
@@ -23,7 +25,7 @@ describe Oystercard do
   describe '#deduct' do
     it 'deducts an amount from the balance' do
       subject.top_up(20)
-      expect{ subject.deduct 10}.to change{ subject.balance }.by -10
+      expect{ subject.touch_out }.to change{ subject.balance }.by -min_charge
     end
   end
 
@@ -36,24 +38,30 @@ describe Oystercard do
   describe '#touch_in' do
     it "can touch in" do
        subject.top_up(20)
-       subject.touch_in
+       subject.touch_in(station)
        expect(subject).to be_in_journey
     end
 
     it 'throws an error if insufficient funds' do
-      expect { subject.touch_in }.to raise_error 'Insufficient balance to touch in'
+      expect { subject.touch_in(station) }.to raise_error 'Insufficient balance to touch in'
     end
+
+    it 'checks for an entry station when user touches in' do
+      subject.top_up(20)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq station
+    end
+
   end
   
   describe '#touch_out' do
     it "can touch out" do
       subject.touch_out
-      subject.touch_out
       expect(subject).not_to be_in_journey
     end
 
     it "Deduct money when touch out" do
-    expect {subject.touch_out}.to change{ subject.balance }.by(-min_balance)
+    expect {subject.touch_out}.to change{ subject.balance }.by(-min_charge)
     end
   end
 
