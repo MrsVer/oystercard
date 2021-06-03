@@ -3,9 +3,9 @@ require "oystercard"
 describe Oystercard do
     it "has an initialized balanced of 0" do
      expect(subject.balance).to eq 0
- end
+    end
 
- describe '#top_up' do
+  describe '#top_up' do
     it "top up the balance" do
       top_up_balance = 10
       expect( subject.top_up(top_up_balance)).to eq top_up_balance
@@ -18,7 +18,7 @@ describe Oystercard do
     end
  end
 
-describe '#deduct' do
+  describe '#deduct' do
     # it 'deduct money from the card' do
     # card = Oystercard.new
     # card.top_up(20)
@@ -31,5 +31,27 @@ describe '#deduct' do
       expect{ subject.deduct 10}.to change{ subject.balance }.by -10
     end
   end
+
+  describe 'in_journey' do
+    it 'is initially not in a journey' do
+     expect(subject).not_to be_in_journey
+    end
+  end
+
+  describe '#touch_in' do
+    it "can touch in" do
+       subject.touch_in
+       expect(subject).to be_in_journey
+    end
+  end
+  
+  describe '#touch_out' do
+    it "can touch out" do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end
+  end
+
 end
 

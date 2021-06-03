@@ -7,6 +7,7 @@ attr_reader :balance
 
     def initialize
         @balance = STARTING_BALANCE
+        @in_journey = false
     end
 
     def top_up(top_up_amount)
@@ -16,5 +17,17 @@ attr_reader :balance
 
     def deduct(amount)
         @balance -= amount
+    end
+
+    def in_journey?
+        @in_journey
+    end
+
+    def touch_in
+        @in_journey=true
+    end
+
+    def touch_out
+        @in_journey=false
     end
 end
