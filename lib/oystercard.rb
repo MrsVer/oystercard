@@ -1,3 +1,5 @@
+require './lib/station'
+
 class Oystercard
     
 STARTING_BALANCE = 0

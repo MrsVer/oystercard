@@ -1,10 +1,8 @@
-class Station 
-    
-  def initialized
-    @zone = zone
-  end
 
-  def zone
-        3
+module Station 
+    
+  def initialize(name, zone)
+    @zone = zone
+    @name = name
   end
 end
